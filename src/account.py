@@ -1,7 +1,7 @@
 from src.validation import (get_validated_input, get_valid_name, get_valid_age, validate_summary)
 import random
 import json
-
+import os
 
 def generate_acc_number(firstName, middleName, lastName):
     """Generate account number for new user"""
@@ -32,8 +32,13 @@ def create_new_account():
     }
 
     # Add account to JSON file
-    with open("json/accounts.json", "r") as file:
-        data = json.load(file)
+    try:
+        with open("json/accounts.json", "r") as file:
+            data = json.load(file)
+        
+    except FileNotFoundError:
+        os.makedirs("json", exist_ok=True) # Creates json/
+        data = {}
 
     data.update(accountData)
 
