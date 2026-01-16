@@ -40,7 +40,7 @@ def create_new_account():
     with open("json/accounts.json", "w") as file:
         json.dump(data, file, indent=4)
 
-    print("\n---ACCOUNT CREATedD!---\nYou may now log with the following credentials:")
+    print("\n---ACCOUNT CREATED!---\nYou may now log with the following credentials:")
     print(f"Username: {acc_number}\nTemporary password: {random.randint(111111, 999999)}")
 
     
