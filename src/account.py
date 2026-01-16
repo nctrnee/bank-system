@@ -1,7 +1,9 @@
 from src.validation import (get_validated_input, get_valid_name, get_valid_age, validate_summary)
+from src.storage import load_data, dump_data
 import random
-import json
 import os
+import json
+
 
 def generate_acc_number(firstName, middleName, lastName):
     """Generate account number for new user"""
@@ -33,18 +35,14 @@ def create_new_account():
 
     # Add account to JSON file
     try:
-        with open("json/accounts.json", "r") as file:
-            data = json.load(file)
-        
-    except FileNotFoundError:
-        os.makedirs("json", exist_ok=True) # Creates json/
+        data = load_data()
+    except (FileNotFoundError, json.JSONDecodeError):
         data = {}
+        
+    data.update(account_data)  # Update JSON file
+    dump_data(data)  # Save changes
 
-    data.update(accountData)
-
-    with open("json/accounts.json", "w") as file:
-        json.dump(data, file, indent=4)
-
+    # Success message
     print("\n---ACCOUNT CREATED!---\nYou may now log with the following credentials:")
     print(f"Username: {acc_number}\nTemporary password: {random.randint(111111, 999999)}")
 
