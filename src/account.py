@@ -1,5 +1,5 @@
 from src.validation import (get_validated_input, get_valid_name, get_valid_age, validate_summary)
-from src.storage import load_data, dump_data
+from src.storage import load_data, dump_data, safely_load
 import random
 import json
 
@@ -13,11 +13,14 @@ def generate_acc_number(first_name, middle_name, last_name):
 
 def generate_temporary_password():
     """Generate temporary password for new user"""
-    data = load_data()
+    data = safely_load
     while True:
         password = random.randint(111111, 999999)
         # Check if password is existing in JSON
-        if password not in [user['password'] for user in data.values()]:
+        try:
+            if password not in [user['password'] for user in data.values()]:
+                return password
+        except AttributeError:
             return password
         """
         data.values -> get user dict    
@@ -48,12 +51,7 @@ def create_new_account():
         }
     }
 
-    # Add account to JSON file
-    try:
-        data = load_data()
-    except (FileNotFoundError, json.JSONDecodeError):
-        data = {}
-        
+    data = safely_load()  # If json does not exist, create
     data.update(account_data)  # Update JSON file
     dump_data(data)  # Save changes
 
