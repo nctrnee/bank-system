@@ -15,9 +15,9 @@ def get_valid_name(prompt):
             print("Error: Invalid character!")
             continue
 
-        # Checks min/max lenght
+        # Checks min/max length
         if not (2 <= len(name) <= 20):
-            print("Error: Must be between 2-10 characters")
+            print("Error: Must be between 2-20 characters")
             continue
 
         return name
