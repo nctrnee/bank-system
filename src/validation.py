@@ -16,7 +16,7 @@ def get_valid_name(prompt):
             continue
 
         # Checks min/max lenght
-        if not (2 <= len(name) <= 10):
+        if not (2 <= len(name) <= 20):
             print("Error: Must be between 2-10 characters")
             continue
 
@@ -28,7 +28,7 @@ def get_valid_age(prompt):
     # Constants
     MIN_AGE = 18
     MAX_AGE = 110
-    
+
     while True:
         try:
             age = input(prompt).strip()
