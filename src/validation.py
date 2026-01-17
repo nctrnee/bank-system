@@ -70,7 +70,7 @@ def validate_summary(lastName, firstName, middleName, age):
         user_input = input(
             f"""\n---VERIFY THE INFORMATION BELLOW---\n
 [1] Last name: {lastName}
-[2] First name {firstName}
+[2] First name: {firstName}
 [3] Middle name: {middleName}
 [4] Age: {age}
 
