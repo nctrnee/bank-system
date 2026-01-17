@@ -25,11 +25,15 @@ def get_valid_name(prompt):
 
 def get_valid_age(prompt):
     """Get valid age"""
+    # Constants
+    MIN_AGE = 18
+    MAX_AGE = 110
+    
     while True:
         try:
             age = input(prompt).strip()
             age = int(age)
-            if not (18 <= age <= 110):
+            if not (MIN_AGE <= age <= MAX_AGE):
                 print("Error: Age not allowed!")
                 continue
 
