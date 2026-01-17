@@ -25,9 +25,9 @@ def create_new_account():
     # acc_number = generate_acc_number()
     account_data = {
         acc_number: {
-            "lastName": last_name,
-            "firstName": first_name,
-            "middleName": middle_name,
+            "last_name": last_name,
+            "first_name": first_name,
+            "middle_name": middle_name,
             "age": age,
         }
     }
