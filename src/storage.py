@@ -20,3 +20,13 @@ def dump_data(data):
 
     with PATH.open("w") as file:
         json.dump(data, file, indent=4)
+
+
+def safely_load():
+    """Return empty dict if FileNotFoundError, json.JSONDecodeError"""
+    try:
+        data = load_data()
+    except (FileNotFoundError, json.JSONDecodeError):
+        data = {}
+    return data
+
