@@ -67,6 +67,7 @@ def get_validated_input(getInput, prompt):
 
 
 def validate_summary(lastName, firstName, middleName, age):
+    """Display all inputs from and can be changed"""
     while True:
         user_input = input(
             f"""\n---VERIFY THE INFORMATION BELLOW---\n
