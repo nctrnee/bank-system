@@ -55,23 +55,23 @@ def is_input_correct():
             print("Error: Invalid input!")
 
 
-def get_validated_input(getInput, prompt):
+def get_validated_input(get_input, prompt):
     """Get input and confirm with user"""
     while True:
-        value = getInput(prompt)
+        value = get_input(prompt)
         print(f"\nYou entered: {value}")
         if is_input_correct():
             return value
 
 
-def validate_summary(lastName, firstName, middleName, age):
+def validate_summary(last_name, first_name, middle_name, age):
     """Display all inputs from and can be changed"""
     while True:
         user_input = input(
             f"""\n---VERIFY THE INFORMATION BELLOW---\n
-[1] Last name: {lastName}
-[2] First name: {firstName}
-[3] Middle name: {middleName}
+[1] Last name: {last_name}
+[2] First name: {first_name}
+[3] Middle name: {middle_name}
 [4] Age: {age}
 
 [Y] Continue [#] Edit specific detail
@@ -79,13 +79,13 @@ def validate_summary(lastName, firstName, middleName, age):
         ).strip()
 
         if user_input in ["y", "Y"]:
-            return lastName, firstName, middleName, age
+            return last_name, first_name, middle_name, age
         elif user_input == "1":
-            lastName = get_validated_input(get_valid_name, "\nLast name: ")
+            last_name = get_validated_input(get_valid_name, "\nLast name: ")
         elif user_input == "2":
-            firstName = get_validated_input(get_valid_name, "\nFirst name: ")
+            first_name = get_validated_input(get_valid_name, "\nFirst name: ")
         elif user_input == "3":
-            middleName = get_validated_input(get_valid_name, "\nMiddle name: ")
+            middle_name = get_validated_input(get_valid_name, "\nMiddle name: ")
         elif user_input == "4":
             age = get_validated_input(get_valid_age, "\nAge: ")
         else:
