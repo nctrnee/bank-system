@@ -62,8 +62,6 @@ def get_validated_input(getInput, prompt):
         print(f"\nYou entered: {value}")
         if is_input_correct():
             return value
-        else:
-            pass
 
 
 def validate_summary(lastName, firstName, middleName, age):
