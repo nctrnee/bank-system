@@ -15,7 +15,7 @@ def main():
         if user_input == "1":
             create_new_account()
         elif user_input == "2":
-            pass # Log in 
+            pass  # Log in
         elif user_input == "3":
             print("Session ended")
             break
@@ -30,3 +30,4 @@ Checks if run directly or imported
 """
 if __name__ == "__main__":
     main()
+    

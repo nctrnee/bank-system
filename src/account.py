@@ -11,6 +11,20 @@ def generate_acc_number(first_name, middle_name, last_name):
     return f"{block1}-{block2:06d}"
 
 
+def generate_temporary_password():
+    """Generate temporary password for new user"""
+    data = load_data()
+    while True:
+        password = random.randint(111111, 999999)
+        # Check if password is existing in JSON
+        if password not in [user['password'] for user in data.values()]:
+            return password
+        """
+        data.values -> get user dict    
+        [user['password'] for user in data.values()] -> list of password
+        """
+
+
 def create_new_account():
     """Create account for new user > save to json file"""
     print("\n---SUPPLY NEEDED INFORMATION---")
@@ -21,14 +35,16 @@ def create_new_account():
 
     last_name, first_name, middle_name, age = validate_summary(last_name, first_name, middle_name, age)
     acc_number = generate_acc_number(first_name, middle_name, last_name)
+    temporary_pass = generate_temporary_password()
 
-    # acc_number = generate_acc_number()
+    # Dict
     account_data = {
         acc_number: {
             "last_name": last_name,
             "first_name": first_name,
             "middle_name": middle_name,
             "age": age,
+            "password": temporary_pass
         }
     }
 
@@ -43,6 +59,6 @@ def create_new_account():
 
     # Success message
     print("\n---ACCOUNT CREATED!---\nYou may now log with the following credentials:")
-    print(f"Username: {acc_number}\nTemporary password: {random.randint(111111, 999999)}")
+    print(f"Username: {acc_number}\nTemporary password: {temporary_pass}")
 
     
