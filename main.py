@@ -1,4 +1,6 @@
-from src.account import create_new_account
+"""Main program"""
+
+from src.account import create_new_account, log_in
 
 
 def main():
