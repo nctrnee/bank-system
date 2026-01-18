@@ -39,7 +39,7 @@ def create_new_account():
         age = get_validated_input(get_valid_age, "\nAge: ")
 
         result = validate_summary(last_name, first_name, middle_name, age)
-        if result is None: # Handle abortion in summary section
+        if result is None:  # Handle abortion in summary section
             return
         
         last_name, first_name, middle_name, age = result
@@ -73,11 +73,20 @@ def create_new_account():
 def log_in(): 
     """Log in using account number and password"""
     if is_user_willing("Continue logging in?"):
-        print("\n---INPUT CREDENTIALS---\n")
+        print("\n---INPUT CREDENTIALS---")
+        print("[X] Back to Main menu\n")
         data = safely_load()
         account_number = get_valid_acc_num()
         if is_password_valid(account_number):
             print("\n---YOU ARE NOW LOGGED IN---")
             print(f"Hi, {data[account_number]["first_name"]}!")
+        
+
+
+
+
+        
     else:
         return
+    
+

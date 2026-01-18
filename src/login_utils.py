@@ -35,17 +35,24 @@ def get_valid_acc_num():
         account_number = input("Account Number: ").strip()
         if account_number in data:
             return account_number
-   
-        print("\nError: Invalid Account Number!")
+        elif account_number in ["X", "x"]:
+            return
+        else:
+            print("\nError: Invalid Account Number!")
 
 
 def is_password_valid(account_number):
     """Get validated password from user that matches JSON/"""
     data = safely_load()
 
+    if account_number is None: 
+        return  # Return to main menu
+    
     while True:
         password = input("Password: ").strip()
         if data[account_number]["password"] == password:
             return True
+        elif password in ["X", "x"]:
+            return
         else:
             print("Error: Password incorrect!\n")
