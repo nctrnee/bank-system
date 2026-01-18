@@ -31,6 +31,7 @@ def is_user_willing(prompt):
 def create_new_account():
     """Create account for new user > save to json file"""
     if is_user_willing("Continue creating account?"):
+
         print("\n---SUPPLY NEEDED INFORMATION---")
         last_name = get_validated_input(get_valid_name, "\nLast name: ")
         first_name = get_validated_input(get_valid_name, "\nFirst name: ")
@@ -55,7 +56,7 @@ def create_new_account():
                 "password": temporary_pass,
             }
         }
-        
+
         # JSON load and dump
         data = safely_load()  # If json does not exist, create
         data.update(account_data)  # Update JSON file
@@ -76,7 +77,7 @@ def log_in():
         data = safely_load()
         account_number = get_valid_acc_num()
         if is_password_valid(account_number):
-            print("---LOG IN SUCCESSFUL---")
+            print("\n---YOU ARE NOW LOGGED IN---")
             print(f"Hi, {data[account_number]["first_name"]}!")
     else:
         return

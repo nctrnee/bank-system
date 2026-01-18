@@ -4,7 +4,7 @@ from src.account import create_new_account, log_in
 
 
 def main():
-    print("---WELCOME TO THE BANK SYSTEM---")
+    print("\n---WELCOME TO THE BANK SYSTEM---")
     while True:
         user_input = input(
             """
@@ -19,7 +19,7 @@ def main():
         elif user_input == "2":
             pass  # Log in
         elif user_input == "3":
-            print("Session ended")
+            print("\nSession ended")
             break
         else:
             print("Error: Invalid input!")
@@ -30,6 +30,8 @@ Checks if run directly or imported
     if directly: __name__ == __main__
     if imported: __name__ == <module_name>
 """
+
+
 if __name__ == "__main__":
     main()
     

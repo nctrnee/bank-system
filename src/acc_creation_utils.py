@@ -98,7 +98,7 @@ def validate_summary(last_name, first_name, middle_name, age):
         elif user_input == "4":
             age = get_validated_input(get_valid_age, "\nAge: ")
         elif user_input in ["x", "X"]:
-            print("Account creation cancelled")
+            print("\nAccount creation cancelled!")
             return
         else:
             print("Error: Invalid input!")

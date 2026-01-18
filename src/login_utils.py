@@ -48,4 +48,4 @@ def is_password_valid(account_number):
         if data[account_number]["password"] == password:
             return True
         else:
-            print("Password incorrect!")
+            print("Error: Password incorrect!\n")
