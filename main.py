@@ -8,6 +8,7 @@ def main():
     while True:
         user_input = input(
             """
+Main menu:
 [1] Create new account
 [2] Log in
 [3] Exit
@@ -17,7 +18,7 @@ def main():
         if user_input == "1":
             create_new_account()
         elif user_input == "2":
-            pass  # Log in
+            log_in()
         elif user_input == "3":
             print("\nSession ended")
             break
@@ -34,4 +35,7 @@ Checks if run directly or imported
 
 if __name__ == "__main__":
     main()
-    
+    # log_in()
+    # create_new_account()
+
+# Add keyboard interrrupt
