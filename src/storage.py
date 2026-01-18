@@ -1,5 +1,10 @@
+"""Handle JSON data management"""
+
 from pathlib import Path  # Modern way of working with file/folders
 import json
+
+# JSON FUNCTIONS
+
 
 # Path object: json/accounts.json
 # Like an address
