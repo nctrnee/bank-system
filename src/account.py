@@ -3,9 +3,16 @@
 
 from src.acc_creation_utils import (
     get_validated_input,
-    get_valid_name,
-    get_valid_age,
-    validate_summary,
+    get_validated_name,
+    get_name,
+    get_age,
+    get_birthdate,
+    get_contact_number,
+    get_email,
+    select_account_type,
+    get_initial_deposit,
+    is_user_willing,
+    validate_summary
 )
 from src.login_utils import (
     get_valid_acc_num, 
@@ -16,45 +23,76 @@ from src.login_utils import (
 from src.storage import dump_data, safely_load
 
 
-def is_user_willing(prompt):
-    """Ask to continue before a process"""
-    while True:
-        proceed = input(f"\n{prompt}\n[Y] Continue [X] Exit\n> ").strip().lower()
-        if proceed == "y":
-            return True
-        elif proceed == "x":
-            return False
-        else:
-            print("Error: Invalid input!")
-
-    
 def create_new_account():
     """Create account for new user > save to json file"""
-    if is_user_willing("Continue creating account?"):
+    if is_user_willing("Continue creating account?"):  # Handle mistyped
 
-        print("\n---SUPPLY NEEDED INFORMATION---")
-        last_name = get_validated_input(get_valid_name, "\nLast name: ")
-        first_name = get_validated_input(get_valid_name, "\nFirst name: ")
-        middle_name = get_validated_input(get_valid_name, "\nMiddle name: ")
-        age = get_validated_input(get_valid_age, "\nAge: ")
+        # Gather info from user
+        print("\n---SUPPLY NEEDED INFORMATION---\n")
 
-        result = validate_summary(last_name, first_name, middle_name, age)
-        if result is None:  # Handle abortion in summary section
-            return
+        print("PERSONAL INFORMATION")
+        last_name = get_validated_name(get_name, "Last name: ")
+        first_name = get_validated_name(get_name, "\nFirst name: ")
+        middle_name = get_validated_name(get_name, "\nMiddle name: ")
+        birth_date = get_validated_input(get_birthdate)
+        age = get_validated_input(get_age)
+
+        print("\nCONTACT INFORMATION")
+        contact_number = get_validated_input(get_contact_number)
+        email = get_validated_input(get_email)
+
+        print("\nACCOUNT DETAILS")
+        account_type = get_validated_input(select_account_type)
+        initial_deposit = get_validated_input(get_initial_deposit)
         
-        last_name, first_name, middle_name, age = result
+        # From the gathered info, validate each and return corrected input
+        result = validate_summary(
+                    last_name,
+                    first_name,
+                    middle_name,
+                    birth_date,
+                    age,
+                    contact_number,
+                    email,
+                    account_type,
+                    initial_deposit
+                    )
+        
+        # User aborted
+        if result is None:  
+            return
+
+        # Unpacking: distributng the values to variables
+        (
+            last_name,
+            first_name,
+            middle_name,
+            birth_date,
+            age,
+            contact_number,
+            email,
+            account_type,
+            initial_deposit
+        ) = result
+
+        # Generate credentials
         acc_number = generate_acc_number(first_name, middle_name, last_name)
         temporary_pass = generate_temporary_password()
 
-        # Dict
+        # Format dict
         account_data = {
             acc_number: {
-                "last_name": last_name,
-                "first_name": first_name,
-                "middle_name": middle_name,
-                "age": age,
-                "password": temporary_pass,
-                "balance": 0
+                "Last name": last_name,
+                "First name": first_name,
+                "Middle name": middle_name,
+                "Birthdate": birth_date,
+                "Age": age,
+                "Contact number": contact_number,
+                "Email": email,
+                "Account type": account_type,
+                "Initial deposit": initial_deposit,
+                "Password": temporary_pass,
+                "balance": initial_deposit
             }
         }
 
@@ -98,5 +136,3 @@ def log_in():
 
     else:
         return
-    
-

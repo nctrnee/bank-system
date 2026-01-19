@@ -31,11 +31,7 @@ Checks if run directly or imported
     if directly: __name__ == __main__
     if imported: __name__ == <module_name>
 """
-
-
 if __name__ == "__main__":
     main()
-    # log_in()
-    # create_new_account()
 
 # Add keyboard interrrupt
