@@ -54,6 +54,7 @@ def create_new_account():
                 "middle_name": middle_name,
                 "age": age,
                 "password": temporary_pass,
+                "balance": 0
             }
         }
 
@@ -73,19 +74,28 @@ def create_new_account():
 def log_in(): 
     """Log in using account number and password"""
     if is_user_willing("Continue logging in?"):
+
         print("\n---INPUT CREDENTIALS---")
         print("[X] Back to Main menu\n")
         data = safely_load()
         account_number = get_valid_acc_num()
+
         if is_password_valid(account_number):
             print("\n---YOU ARE NOW LOGGED IN---")
             print(f"Hi, {data[account_number]["first_name"]}!")
-        
+            # Show user menu
+            user_input = input("""
+[1] Profile
+[2] ATM
 
+""").strip()
+            if user_input == "1":
+                pass
+                # Profile section
+            elif user_input == "2":
+                pass
+                # ATM functions
 
-
-
-        
     else:
         return
     
