@@ -82,17 +82,23 @@ def create_new_account():
         # Format dict
         account_data = {
             acc_number: {
-                "Last name": last_name,
-                "First name": first_name,
-                "Middle name": middle_name,
-                "Birthdate": birth_date,
-                "Age": age,
-                "Contact number": contact_number,
-                "Email": email,
-                "Account type": account_type,
-                "Initial deposit": initial_deposit,
-                "Password": temporary_pass,
-                "balance": initial_deposit
+                "Personal Information": {
+                    "Last name": last_name,
+                    "First name": first_name,
+                    "Middle name": middle_name,
+                    "Birthdate": birth_date,
+                    "Age": age
+                },
+                "Contact Details": {
+                    "Contact number": contact_number,
+                    "Email": email,
+                },
+                "Bank Account Details": {
+                    "Account type": account_type,
+                    "Initial deposit": initial_deposit,
+                    "Password": temporary_pass,
+                    "balance": initial_deposit
+                }
             }
         }
 
@@ -102,7 +108,7 @@ def create_new_account():
         dump_data(data)  # Save changes
 
         # Success message
-        print("\n---ACCOUNT CREATED!---\nYou may now log with the following credentials:")
+        print("\n---ACCOUNT CREATED!---\n""You may now log with the following credentials:")
         print(f"Username: {acc_number}\nTemporary password: {temporary_pass}")
 
     else:
