@@ -32,6 +32,8 @@ Checks if run directly or imported
     if imported: __name__ == <module_name>
 """
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\n\nSession ended")
 
-# Add keyboard interrrupt

@@ -18,7 +18,8 @@ from src.login_utils import (
     get_valid_acc_num, 
     is_password_valid, 
     generate_acc_number, 
-    generate_temporary_password
+    generate_temporary_password,
+    show_profile
 )
 from src.storage import dump_data, safely_load
 
@@ -97,7 +98,7 @@ def create_new_account():
                     "Account type": account_type,
                     "Initial deposit": initial_deposit,
                     "Password": temporary_pass,
-                    "balance": initial_deposit
+                    "Balance": initial_deposit
                 }
             }
         }
@@ -128,17 +129,17 @@ def log_in():
             print("\n---YOU ARE NOW LOGGED IN---")
             print(f"Hi, {data[account_number]["Personal Information"]["First name"]}!")
             # Show user menu
-            user_input = input("""
+            while True: 
+                user_input = input("""
+User menu:
 [1] Profile
 [2] ATM
-
-""").strip()
-            if user_input == "1":
-                pass
-                # Profile section
-            elif user_input == "2":
-                pass
-                # ATM functions
+> """).strip()
+                if user_input == "1":
+                    show_profile(account_number)  # TESTING
+                elif user_input == "2":
+                    pass
+                    # ATM functions
 
     else:
         return

@@ -200,10 +200,11 @@ ACCOUNT DETAILS
 > """).strip()
         
         # If user is satisifed with the info
-        if user_input in ["y", "Y"]:  
-            return (last_name, first_name, middle_name, birth_date, age,
-                    contact_number, email, account_type, initial_deposit)
-        
+        if user_input in ["y", "Y"]: 
+            if is_user_willing("Create account?"):
+                return (last_name, first_name, middle_name, birth_date, age,
+                        contact_number, email, account_type, initial_deposit)
+            
         # To update
         elif user_input == "1":
             last_name = get_validated_name(get_name, "\nLast name: ")
@@ -226,8 +227,9 @@ ACCOUNT DETAILS
        
         # User aborted
         elif user_input in ["x", "X"]:  
-            print("\nAccount creation cancelled!")
-            return
+            if is_user_willing("Cancel?"):
+                print("\nAccount creation cancelled!")
+                return
         
         else:
             print("Error: Invalid input!")
