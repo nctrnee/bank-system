@@ -50,7 +50,7 @@ def is_password_valid(account_number):
     
     while True:
         password = input("Password: ").strip()
-        if data[account_number]["password"] == password:
+        if data[account_number]["Bank Account Details"]["Password"] == password:
             return True
         elif password in ["X", "x"]:
             return

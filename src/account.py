@@ -126,7 +126,7 @@ def log_in():
 
         if is_password_valid(account_number):
             print("\n---YOU ARE NOW LOGGED IN---")
-            print(f"Hi, {data[account_number]["first_name"]}!")
+            print(f"Hi, {data[account_number]["Personal Information"]["First name"]}!")
             # Show user menu
             user_input = input("""
 [1] Profile
