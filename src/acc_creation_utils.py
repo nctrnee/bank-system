@@ -1,13 +1,42 @@
 """Handle accoun creation"""
 
 
+def is_user_willing(prompt):
+    """Ask to continue before a process"""
+    while True:
+        proceed = input(f"\n{prompt}\n[Y] Continue [X] Back\n> ").strip().lower()
+        if proceed == "y":
+            return True
+        elif proceed == "x":
+            return False
+        else:
+            print("Error: Invalid input!")
+
+
+def want_to_cancel(user_input):
+    """Allow user to exit mid session of a certain process"""
+    if user_input == "x":
+        if is_user_willing("Discard progress?"):
+            return True
+        else:
+            return "continue"
+
+
 def get_name(prompt):
     """Get valid name"""
     allowed_chars = "abcdefghijklmnopqrstuvwxyz -'"
+    MIN_LENGTH = 2
+    MAX_LENGTH = 20
 
     while True:
         name = input(prompt).strip().title()
+        if want_to_cancel(name.lower()):  # Want to cancel mid session
+            print("Account creation cancelled")
+            return None
 
+        elif want_to_cancel == "continue":  # Reprompt field
+            continue
+        
         # Checks if empty
         if not name:
             print("Error: Empty field!")
@@ -19,10 +48,10 @@ def get_name(prompt):
             continue
 
         # Checks min/max length
-        if not (2 <= len(name) <= 20):
+        if not (MIN_LENGTH <= len(name) <= MAX_LENGTH):
             print("Error: Must be between 2-20 characters")
             continue
-
+        
         return name
     
 
@@ -30,7 +59,11 @@ def get_birthdate():
     """Get and format birthdate as MM/DD/YYYY"""
     while True:
         birthdate = input("\nBirthdate (MM/DD/YYYY): ")
-        
+        if want_to_cancel(birthdate.lower()):
+            print("Account creation cancelled")
+            return None
+        elif want_to_cancel == "continue":  # Reprompt field
+            continue
         # Remove separators
         clean = birthdate.replace("/", "").replace("-", "").replace(" ", "")
         
@@ -57,6 +90,11 @@ def get_age():
     while True:
         try:
             age = input("\nAge: ").strip()
+            if want_to_cancel(age.lower()):
+                print("Account creation cancelled")
+                return None
+            elif want_to_cancel == "continue":  # Reprompt field
+                continue
             age = int(age)
             if not (MIN_AGE <= age <= MAX_AGE):
                 print("Error: Age not allowed!")
@@ -72,6 +110,11 @@ def get_contact_number():
     """Get 11-digit contact number"""
     while True:
         contact = input("Contact number (09XX-XXX-XXXX):  ").strip()
+        if want_to_cancel(contact.lower()):
+            print("Account creation cancelled")
+            return None
+        elif want_to_cancel == "continue":  # Reprompt field
+            continue
         # Remove dash and space
         clean = contact.replace("-", "").replace(" ", "")
         
@@ -90,6 +133,11 @@ def get_email():
     """Get email - optional, can skip by pressing Enter"""
     while True:
         email = input("\nEmail (or press Enter to skip): ").strip()
+        if want_to_cancel(email.lower()):
+            print("Account creation cancelled")
+            return None
+        elif want_to_cancel == "continue":  # Reprompt field
+            continue
         
         # Allow skipping
         if email == "":
@@ -109,7 +157,11 @@ def select_account_type():
 [1] Checkings
 [2] Savings
 > """).strip()
-        
+        if want_to_cancel(account_type.lower()):
+            print("Account creation cancelled")
+            return None
+        elif want_to_cancel == "continue":  # Reprompt field
+            continue
         if account_type == "1":
             return "Checkings"
         elif account_type == "2":
@@ -122,6 +174,11 @@ def get_initial_deposit():
     """Get initial deposit from new user"""
     while True:
         initial_deposit = input("\nInitial deposit (500 Minimum): ")
+        if want_to_cancel(initial_deposit.lower()):
+            print("Account creation cancelled")
+            return None
+        elif want_to_cancel == "continue":  # Reprompt field
+            continue
         try:
             initial_deposit = int(initial_deposit)
             if initial_deposit < 500:
@@ -132,22 +189,10 @@ def get_initial_deposit():
             print("Error: Invalid character!")
 
 
-def is_user_willing(prompt):
-    """Ask to continue before a process"""
-    while True:
-        proceed = input(f"\n{prompt}\n[Y] Continue [X] Exit\n> ").strip().lower()
-        if proceed == "y":
-            return True
-        elif proceed == "x":
-            return False
-        else:
-            print("Error: Invalid input!")
-
-
 def is_input_correct():
     """Confirmation for every input"""
     while True:
-        user_input = input("Proceed? [Y] Yes [N] No\n> ").strip().lower()
+        user_input = input("Proceed [Y] Yes [N] No\n> ").strip().lower()
         if user_input == "y":
             return True
         elif user_input == "n":
@@ -160,6 +205,8 @@ def get_validated_name(get_input, prompt):
     """Get name and confirm with user"""
     while True:
         value = get_input(prompt)
+        if value is None:
+            return
         print(f"\nYou entered: {value}")
         if is_input_correct():
             return value
@@ -169,6 +216,8 @@ def get_validated_input(get_input):
     """Get input and confirm with user"""
     while True:
         value = get_input()
+        if value is None:
+            return
         print(f"\nYou entered: {value}")
         if is_input_correct():
             return value
@@ -201,7 +250,7 @@ ACCOUNT DETAILS
         
         # If user is satisifed with the info
         if user_input in ["y", "Y"]: 
-            if is_user_willing("Create account?"):
+            if is_user_willing("Create account"):
                 return (last_name, first_name, middle_name, birth_date, age,
                         contact_number, email, account_type, initial_deposit)
             
@@ -227,7 +276,7 @@ ACCOUNT DETAILS
        
         # User aborted
         elif user_input in ["x", "X"]:  
-            if is_user_willing("Cancel?"):
+            if is_user_willing("Cancel"):
                 print("\nAccount creation cancelled!")
                 return
         

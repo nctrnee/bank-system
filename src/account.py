@@ -18,10 +18,11 @@ from src.login_utils import (
     get_valid_acc_num, 
     is_password_valid, 
     generate_acc_number, 
-    generate_temporary_password,
-    show_profile
+    generate_temporary_password
 )
+from src.user_menu import show_profile
 from src.storage import dump_data, safely_load
+from src.atm_functions import show_atm
 
 
 def create_new_account():
@@ -29,22 +30,44 @@ def create_new_account():
     if is_user_willing("Continue creating account?"):  # Handle mistyped
 
         # Gather info from user
-        print("\n---SUPPLY NEEDED INFORMATION---\n")
-
+        print("\n---SUPPLY NEEDED INFORMATION---\n[X] Cancel\n")
+        
         print("PERSONAL INFORMATION")
         last_name = get_validated_name(get_name, "Last name: ")
+        if last_name is None:
+            return  # Cancel mid session
+
         first_name = get_validated_name(get_name, "\nFirst name: ")
+        if first_name is None:
+            return
         middle_name = get_validated_name(get_name, "\nMiddle name: ")
+        if middle_name is None:
+            return
+
         birth_date = get_validated_input(get_birthdate)
+        if birth_date is None:
+            return
+
         age = get_validated_input(get_age)
+        if age is None:
+            return
 
         print("\nCONTACT INFORMATION")
         contact_number = get_validated_input(get_contact_number)
+        if contact_number is None:
+            return
+
         email = get_validated_input(get_email)
+        if email is None:
+            return
 
         print("\nACCOUNT DETAILS")
         account_type = get_validated_input(select_account_type)
+        if account_type is None:
+            return
         initial_deposit = get_validated_input(get_initial_deposit)
+        if initial_deposit is None:
+            return
         
         # From the gathered info, validate each and return corrected input
         result = validate_summary(
@@ -134,12 +157,15 @@ def log_in():
 User menu:
 [1] Profile
 [2] ATM
-> """).strip()
+[3] Log out
+> """).strip().lower()
                 if user_input == "1":
-                    show_profile(account_number)  # TESTING
+                    show_profile(account_number)  # Profile
                 elif user_input == "2":
-                    pass
-                    # ATM functions
+                    show_atm(account_number)  # ATM functions
+                elif user_input == "3":  # Log out
+                    if is_user_willing("Log out?"):
+                        return
 
     else:
         return

@@ -26,14 +26,11 @@ Main menu:
             print("Error: Invalid input!")
 
 
-""" 
-Checks if run directly or imported
-    if directly: __name__ == __main__
-    if imported: __name__ == <module_name>
-"""
+# Checks if run directly or imported
+#    if directly: __name__ == __main__
+#    if imported: __name__ == <module_name>
 if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
-        print("\n\nSession ended")
-
+        print("\n\nSession ended: Keyboard interrupt")
