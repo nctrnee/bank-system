@@ -245,7 +245,7 @@ ACCOUNT DETAILS
 [8] Account type: {account_type}
 [9] Initial deposit: {initial_deposit}
 
-[Y] Continue [#] Edit specific detail [X] Cancel
+[Y] Continue [1-9] Edit specific detail [X] Cancel
 > """).strip()
         
         # If user is satisifed with the info

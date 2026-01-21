@@ -1,7 +1,16 @@
 """Handle login operations"""
 
 import random
+import hashlib  # Security purposes
 from src.storage import safely_load
+
+
+def hash_password(password):
+    """Hashes password"""
+    return hashlib.sha256(password.encode()).hexdigest()
+    # hashlib.sha256() = a one-way encryption algorithm
+    # .encode() = converts string to bytes (required by hashlib)
+    # .hexdigest() = converts encrypted bytes to readable text
 
 
 def generate_acc_number(first_name, middle_name, last_name):
@@ -15,13 +24,13 @@ def generate_temporary_password():
     """Generate temporary password for new user"""
     data = safely_load()
     while True:
-        password = random.randint(111111, 999999) 
+        password = random.randint(111111, 999999)
         password = str(password)
         # Check if password is existing in JSON
         try:
             if password not in [user["Bank Account Details"]["Password"] for user in data.values()]:
                 return password
-            #  data.values -> get user dict    
+            # data.values -> get user dict    
             # [user['password'] for user in data.values()] -> list of password
         except AttributeError:
             return password
@@ -50,7 +59,7 @@ def is_password_valid(account_number):
     
     while True:
         password = input("Password: ").strip()
-        if data[account_number]["Bank Account Details"]["Password"] == password:
+        if data[account_number]["Bank Account Details"]["Password"] == hash_password(password):
             return True
         elif password in ["X", "x"]:
             return

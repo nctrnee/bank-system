@@ -18,7 +18,8 @@ from src.login_utils import (
     get_valid_acc_num, 
     is_password_valid, 
     generate_acc_number, 
-    generate_temporary_password
+    generate_temporary_password,
+    hash_password
 )
 from src.user_menu import show_profile
 from src.storage import dump_data, safely_load
@@ -120,7 +121,7 @@ def create_new_account():
                 "Bank Account Details": {
                     "Account type": account_type,
                     "Initial deposit": initial_deposit,
-                    "Password": temporary_pass,
+                    "Password": hash_password(temporary_pass),
                     "Balance": initial_deposit
                 }
             }

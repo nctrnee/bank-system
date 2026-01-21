@@ -49,7 +49,7 @@ def deposit(account_number):
         try:
             deposit_amount = int(deposit_amount)
             if deposit_amount < 500:
-                print("Error: Minimun of 500")
+                print("Error: Minimum of 500")
             elif deposit_amount == "x":
                 return
             else:
