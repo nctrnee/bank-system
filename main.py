@@ -1,9 +1,8 @@
-"""Main program"""
-
 from src.account import create_new_account, log_in
 
 
 def main():
+    """Main program"""
     print("\n---WELCOME TO THE BANK SYSTEM---")
     while True:
         user_input = input(
@@ -12,9 +11,9 @@ Main menu:
 [1] Create new account
 [2] Log in
 [3] Exit
-> """
-        ).strip()
-
+> """).strip()
+        
+        # Main menu
         if user_input == "1":
             create_new_account()
         elif user_input == "2":

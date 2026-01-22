@@ -32,23 +32,20 @@ def create_new_account():
 
         # Gather info from user
         print("\n---SUPPLY NEEDED INFORMATION---\n[X] Cancel\n")
-        
+
         print("PERSONAL INFORMATION")
         last_name = get_validated_name(get_name, "Last name: ")
         if last_name is None:
             return  # Cancel mid session
-
         first_name = get_validated_name(get_name, "\nFirst name: ")
         if first_name is None:
             return
         middle_name = get_validated_name(get_name, "\nMiddle name: ")
         if middle_name is None:
             return
-
         birth_date = get_validated_input(get_birthdate)
         if birth_date is None:
             return
-
         age = get_validated_input(get_age)
         if age is None:
             return
@@ -57,9 +54,8 @@ def create_new_account():
         contact_number = get_validated_input(get_contact_number)
         if contact_number is None:
             return
-
         email = get_validated_input(get_email)
-        if email is None:
+        if contact_number is None:
             return
 
         print("\nACCOUNT DETAILS")
@@ -69,7 +65,7 @@ def create_new_account():
         initial_deposit = get_validated_input(get_initial_deposit)
         if initial_deposit is None:
             return
-        
+
         # From the gathered info, validate each and return corrected input
         result = validate_summary(
                     last_name,
@@ -82,7 +78,7 @@ def create_new_account():
                     account_type,
                     initial_deposit
                     )
-        
+
         # User aborted
         if result is None:  
             return
@@ -102,7 +98,7 @@ def create_new_account():
 
         # Generate credentials
         acc_number = generate_acc_number(first_name, middle_name, last_name)
-        temporary_pass = generate_temporary_password()
+        temporary_pass = generate_temporary_password()  # Hash password
 
         # Format dict
         account_data = {
@@ -141,6 +137,7 @@ def create_new_account():
 
 
 def log_in(): 
+
     """Log in using account number and password"""
     if is_user_willing("Continue logging in?"):
 
