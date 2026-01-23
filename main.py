@@ -11,8 +11,9 @@ Main menu:
 [1] Create new account
 [2] Log in
 [3] Exit
-> """).strip()
-        
+> """
+        ).strip()
+
         # Main menu
         if user_input == "1":
             create_new_account()
@@ -26,7 +27,7 @@ Main menu:
 
 
 # Checks if run directly or imported
-#    if directly: __name__ == __main__
+#    if directly: __name__ == __main__1
 #    if imported: __name__ == <module_name>
 if __name__ == "__main__":
     try:

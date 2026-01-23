@@ -19,9 +19,9 @@ from src.login_utils import (
     is_password_valid, 
     generate_acc_number, 
     generate_temporary_password,
-    hash_password
+    hash_password,
 )
-from src.user_menu import show_profile
+from src.user_menu import show_profile, change_password
 from src.storage import dump_data, safely_load
 from src.atm_functions import show_atm
 
@@ -155,13 +155,16 @@ def log_in():
 User menu:
 [1] Profile
 [2] ATM
-[3] Log out
+[3] Change password
+[4] Log out
 > """).strip().lower()
                 if user_input == "1":
                     show_profile(account_number)  # Profile
                 elif user_input == "2":
                     show_atm(account_number)  # ATM functions
-                elif user_input == "3":  # Log out
+                elif user_input == "3":
+                    change_password(account_number)
+                elif user_input == "4":  # Log out
                     if is_user_willing("Log out?"):
                         return
 

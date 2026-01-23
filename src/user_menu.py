@@ -1,6 +1,7 @@
 """User menu options"""
 
 from src.storage import safely_load, dump_data
+from src.login_utils import hash_password
 from src.acc_creation_utils import (
     get_validated_input,
     get_validated_name,
@@ -60,6 +61,26 @@ ACCOUNT DETAILS
             return
         else:
             print("Error: Invalid input!")
+
+
+def change_password(account_number):
+    """Allow user to change password"""
+    MIN_MAX = 6
+    if is_user_willing("Change password?"):
+        while True:
+            data = safely_load()
+             
+            new_pasword = input("\nEnter new password: ").strip()
+            if new_pasword.isnumeric() and len(new_pasword) == MIN_MAX:
+                verified_new_pasword = input("\nEnter again new password: ").strip()
+                if verified_new_pasword == new_pasword:
+                    data[account_number]["Bank Account Details"]["Password"] = hash_password(new_pasword)
+                    dump_data(data)
+                    print("Password change successful!")
+                    break
+                print("Password mismatched!")
+                return
+            print("Must be all number and 6 digits length")
 
 
 def edit_profile(account_number):

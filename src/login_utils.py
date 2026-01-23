@@ -58,10 +58,10 @@ def is_password_valid(account_number):
         return  # Return to main menu
     
     while True:
-        password = input("Password: ").strip()
+        password = input("Password: ").strip().lower()
         if data[account_number]["Bank Account Details"]["Password"] == hash_password(password):
             return True
-        elif password in ["X", "x"]:
+        elif password == "x":
             return
         else:
             print("Error: Password incorrect!\n")
