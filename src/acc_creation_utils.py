@@ -1,7 +1,7 @@
 """Handle accoun creation"""
 
 
-def is_user_willing(prompt):
+def is_user_willing(prompt) -> bool:
     """Ask to continue before a process"""
     while True:
         proceed = input(f"\n{prompt}\n[Y] Continue [X] Back\n> ").strip().lower()
@@ -10,16 +10,17 @@ def is_user_willing(prompt):
         if proceed == "x":
             return False
 
-        print("Error: Invalid input!")
+        print("Error: Please enter [Y] or [X].")
 
 
 def want_to_cancel(user_input):
     """Allow user to exit mid session of a certain process"""
-    if user_input == "x":
-        if is_user_willing("Discard progress?"):
-            return True
+    if user_input != "x":
+        return False
+    if is_user_willing("Discard progress?"):
+        return True
 
-        return "continue"
+    return None
 
 
 def get_name(prompt):
@@ -34,10 +35,12 @@ def get_name(prompt):
 
         # Allow to cancel mid session
         cancel_result = want_to_cancel(name.lower())
-        if cancel_result:  
+
+        if cancel_result is True:
             print("Account creation cancelled")
             return None
-        if cancel_result == "continue":
+
+        if cancel_result is None:
             continue  # Reprompt field
 
         # Checks if empty
@@ -55,7 +58,7 @@ def get_name(prompt):
             print("Error: Must be between 2-20 characters")
             continue
 
-        return name
+        return name  # Since it didn't catch error, return the variable
 
 
 def get_birthdate():
@@ -64,10 +67,10 @@ def get_birthdate():
         birthdate = input("\nBirthdate (MM/DD/YYYY): ")
 
         cancel_result = want_to_cancel(birthdate.lower())
-        if cancel_result:  
+        if cancel_result is True:
             print("Account creation cancelled")
             return None
-        if cancel_result == "continue":  
+        if cancel_result is None:
             continue
 
         # Remove separators
@@ -81,8 +84,8 @@ def get_birthdate():
             # Validation
             if 1 <= int(month) <= 12 and 1 <= int(day) <= 31 and 1900 <= int(year) <= 2025:
                 return f"{month}/{day}/{year}"
-            else:
-                print("Error: Invalid date")
+            
+            print("Error: Invalid date")
         else:
             print("Error: Enter 8 digits (MMDDYYYY)")
 
@@ -98,10 +101,10 @@ def get_age():
             age = input("\nAge: ").strip()
 
             cancel_result = want_to_cancel(age.lower())
-            if cancel_result:  # Want to cancel mid session
+            if cancel_result is True:  # Want to cancel mid session
                 print("Account creation cancelled")
                 return None
-            if cancel_result == "continue":  # Reprompt field
+            if cancel_result is None:  # Reprompt field
                 continue
 
             age = int(age)
@@ -121,10 +124,10 @@ def get_contact_number():
         contact = input("Contact number (09XX-XXX-XXXX):  ").strip()
 
         cancel_result = want_to_cancel(contact.lower())
-        if cancel_result:  
+        if cancel_result is True:  
             print("Account creation cancelled")
             return None
-        if cancel_result == "continue":  
+        if cancel_result is None: 
             continue
 
         # Remove dash and space
@@ -147,10 +150,10 @@ def get_email():
         email = input("\nEmail (user@example.com): ").strip()
 
         cancel_result = want_to_cancel(email.lower())
-        if cancel_result:  
+        if cancel_result is True: 
             print("Account creation cancelled")
             return None
-        if cancel_result == "continue":  
+        if cancel_result is None:
             continue
         
         # Validation
@@ -169,10 +172,10 @@ def select_account_type():
 > """).strip()
         cancel_result = want_to_cancel(account_type.lower())
 
-        if cancel_result:  
+        if cancel_result is True:  
             print("Account creation cancelled")
             return None
-        if cancel_result == "continue": 
+        if cancel_result is None:
             continue
 
         if account_type == "1":
@@ -189,10 +192,10 @@ def get_initial_deposit():
         initial_deposit = input("\nInitial deposit (500 Minimum): ")
 
         cancel_result = want_to_cancel(initial_deposit.lower())
-        if cancel_result:  # Want to cancel mid session
+        if cancel_result is True:  # Want to cancel mid session
             print("Account creation cancelled")
             return None
-        if cancel_result == "continue":  # Reprompt field
+        if cancel_result is None:  # Reprompt field
             continue
 
         try:

@@ -1,4 +1,5 @@
 from src.account import create_new_account, log_in
+from src.user_menu import change_password
 
 
 def main():

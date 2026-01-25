@@ -15,22 +15,23 @@ def check_balance(account_number):
 def withdraw(account_number):
     """Subtract amount from balance"""
     data = safely_load()
+    
     while True:
-        withdraw_amount = input("\n[X] Cancel\nWithdraw ammount: ").strip()
+        withdraw_amount = input("\n[X] Cancel\nWithdraw amount: ").strip().lower()
         if withdraw_amount == "x":
             return
         try:
             withdraw_amount = int(withdraw_amount)
-            current_balance = data[account_number]["Bank Account Details"]["Balance"]
+            balance = data[account_number]["Bank Account Details"]["Balance"]
 
-            if withdraw_amount > current_balance:
+            if withdraw_amount > balance:
                 print("Error: Insufficient balance")
-            
             elif withdraw_amount < 500:
-                print("Error: Minimun of 500")
+                print("Error: Minimum of 500")
             else:
-                data[account_number]["Bank Account Details"]["Balance"] -= withdraw_amount
-                print(f"\nNew balance: {data[account_number]["Bank Account Details"]["Balance"]}")
+                balance -= withdraw_amount
+                data[account_number]["Bank Account Details"]["Balance"] = balance
+                print(f"\nNew balance: {balance}")
                 dump_data(data)
                 break
 
@@ -41,7 +42,7 @@ def withdraw(account_number):
 def deposit(account_number):
     """Add amount to balance"""
     data = safely_load()
-
+    balance = data[account_number]["Bank Account Details"]["Balance"]
     while True:
         deposit_amount = input('\n[X] Cancel\nDeposit amount: ').strip().lower()
         if deposit_amount == "x":
@@ -50,11 +51,10 @@ def deposit(account_number):
             deposit_amount = int(deposit_amount)
             if deposit_amount < 500:
                 print("Error: Minimum of 500")
-            elif deposit_amount == "x":
-                return
             else:
-                data[account_number]["Bank Account Details"]["Balance"] += deposit_amount
-                print(f"\nNew balance: {data[account_number]["Bank Account Details"]["Balance"]}")
+                balance += deposit_amount
+                data[account_number]["Bank Account Details"]["Balance"] = balance
+                print(f"\nNew balance: {balance}")
                 dump_data(data)
                 break
             
@@ -64,23 +64,24 @@ def deposit(account_number):
 
 def show_atm(account_number):
     """Allow user to do ATM transactions"""
-    if is_user_willing("Continue to ATM transactions?"):
-        while True:
-            user_input = input("""
+    if not is_user_willing("Continue to ATM transactions?"):
+        return
+    while True:
+        user_input = input("""
 --------------ATM-----------------                                                   
 [1] Check balance
 [2] Deposit
 [3] Withdraw
 [4] Back to user menu                       
 > """).strip().lower()
-            
-            if user_input == "1":
-                check_balance(account_number)
-            elif user_input == "2":
-                deposit(account_number)
-            elif user_input == "3":
-                withdraw(account_number)
-            elif user_input == "4":
-                return
-            else:
-                print("Error: Inavlid input")
+        
+        if user_input == "1":
+            check_balance(account_number)
+        elif user_input == "2":
+            deposit(account_number)
+        elif user_input == "3":
+            withdraw(account_number)
+        elif user_input == "4":
+            return
+        else:
+            print("Error: Inavlid input")
