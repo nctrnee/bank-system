@@ -27,7 +27,7 @@ def withdraw(account_number):
             if withdraw_amount > balance:
                 print("Error: Insufficient balance")
             elif withdraw_amount < 500:
-                print("Error: Minimum of 500")
+                print("Error: Minimum of ₱500.00")
             else:
                 balance -= withdraw_amount
                 data[account_number]["Bank Account Details"]["Balance"] = balance
@@ -50,7 +50,7 @@ def deposit(account_number):
         try:
             deposit_amount = int(deposit_amount)
             if deposit_amount < 500:
-                print("Error: Minimum of 500")
+                print("Error: Minimum of ₱500.00")
             else:
                 balance += deposit_amount
                 data[account_number]["Bank Account Details"]["Balance"] = balance

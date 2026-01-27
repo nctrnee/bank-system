@@ -189,7 +189,7 @@ def select_account_type():
 def get_initial_deposit():
     """Get initial deposit from new user"""
     while True:
-        initial_deposit = input("\nInitial deposit (500 Minimum): ")
+        initial_deposit = input("\nInitial deposit (Minimum of ₱500.00): ")
 
         cancel_result = want_to_cancel(initial_deposit.lower())
         if cancel_result is True:  # Want to cancel mid session
@@ -201,7 +201,7 @@ def get_initial_deposit():
         try:
             initial_deposit = int(initial_deposit)
             if initial_deposit < 500:
-                print("Error: 500 Minimun")
+                print("Error: ₱500.00 Minimun")
             else:
                 return initial_deposit
         except ValueError:
@@ -244,6 +244,18 @@ def get_validated_input(get_input):
             return value
 
 
+def get_validated_initial_deposit(get_input):
+    """Get initial deposit and format for display"""
+    while True:
+        value = get_input()
+        if value is None:
+            return
+
+        print(f"\nYou entered: ₱{value:,.2f}")
+        if is_input_correct():
+            return value
+
+
 def validate_summary(last_name, first_name, middle_name, birth_date, age,
                      contact_number, email, account_type, initial_deposit):
     """Display all inputs from user to finalize"""
@@ -264,7 +276,7 @@ CONTACT INFORMATION
 
 ACCOUNT DETAILS
 [8] Account type: {account_type}
-[9] Initial deposit: {initial_deposit}
+[9] Initial deposit: ₱{initial_deposit:,.2f}
 
 [1-9] Edit specific detail [Y] Continue  [X] Cancel
 > """).strip().lower()
@@ -293,7 +305,7 @@ ACCOUNT DETAILS
         elif user_input == "8":
             account_type = get_validated_input(select_account_type)
         elif user_input == "9":
-            initial_deposit = get_validated_input(get_initial_deposit)
+            initial_deposit = get_validated_initial_deposit(get_initial_deposit)
 
         # User aborted
         elif user_input == "x":  

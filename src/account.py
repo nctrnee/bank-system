@@ -12,7 +12,8 @@ from src.acc_creation_utils import (
     select_account_type,
     get_initial_deposit,
     is_user_willing,
-    validate_summary
+    validate_summary,
+    get_validated_initial_deposit
 )
 from src.login_utils import (
     get_valid_acc_num, 
@@ -63,7 +64,7 @@ def create_new_account():
     account_type = get_validated_input(select_account_type)
     if account_type is None:
         return
-    initial_deposit = get_validated_input(get_initial_deposit)
+    initial_deposit = get_validated_initial_deposit(get_initial_deposit)
     if initial_deposit is None:
         return
 
@@ -119,7 +120,7 @@ def create_new_account():
                 "Account type": account_type,
                 "Initial deposit": initial_deposit,
                 "Password": hash_password(temporary_pass),
-                "Balance": initial_deposit
+                "Balance":  initial_deposit
             }
         }
     }
