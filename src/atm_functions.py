@@ -9,7 +9,7 @@ def check_balance(account_number):
     """Show balance from account"""
     data = safely_load()
     balance = data[account_number]["Bank Account Details"]["Balance"]
-    print(f"\nBalance: {balance}")
+    print(f"\nBalance: ₱{balance:,.2f}")
 
 
 def withdraw(account_number):
@@ -31,7 +31,7 @@ def withdraw(account_number):
             else:
                 balance -= withdraw_amount
                 data[account_number]["Bank Account Details"]["Balance"] = balance
-                print(f"\nNew balance: {balance}")
+                print(f"\nNew balance: ₱{balance:,.2f}")
                 dump_data(data)
                 break
 
@@ -54,7 +54,7 @@ def deposit(account_number):
             else:
                 balance += deposit_amount
                 data[account_number]["Bank Account Details"]["Balance"] = balance
-                print(f"\nNew balance: {balance}")
+                print(f"\nNew balance: ₱{balance:,.2f}")
                 dump_data(data)
                 break
             
@@ -68,13 +68,13 @@ def show_atm(account_number):
         return
     while True:
         user_input = input("""
---------------ATM-----------------                                                   
+--------------ATM-----------------                                     
 [1] Check balance
 [2] Deposit
 [3] Withdraw
 [4] Back to user menu                       
 > """).strip().lower()
-        
+
         if user_input == "1":
             check_balance(account_number)
         elif user_input == "2":

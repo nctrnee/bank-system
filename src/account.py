@@ -167,7 +167,7 @@ User menu:
             show_profile(account_number)  # Profile
         elif user_input == "2":
             show_atm(account_number)  # ATM functions
-        elif user_input == "3":
+        elif user_input == "3":  # Change password
             change_password(account_number)
         elif user_input == "4":  # Log out
             if is_user_willing("Log out?"):
