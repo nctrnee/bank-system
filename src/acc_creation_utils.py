@@ -201,7 +201,7 @@ def get_initial_deposit():
         try:
             initial_deposit = int(initial_deposit)
             if initial_deposit < 500:
-                print("Error: ₱500.00 Minimun")
+                print("Error: ₱500.00 Minimum")
             else:
                 return initial_deposit
         except ValueError:
